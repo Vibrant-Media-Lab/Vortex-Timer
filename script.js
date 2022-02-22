@@ -89,7 +89,7 @@ function pauseTimer(num){
 /**
  * Resets the timer
  *
- * @param {number} num The number of the timer
+ * @param {number} num The number of the timer 
  */
 function resetTimer(num){
   if (isPaused[num] == false)
@@ -105,7 +105,6 @@ function resetTimer(num){
   
   document.getElementById("timer" + num).remove();  
   createTimer(num, hr, min, sec, true);
-
 }
 
 /**
