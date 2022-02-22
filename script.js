@@ -147,7 +147,7 @@ function handleSubmit(){
   
   // Hide form, show gear and timers
   document.getElementById("form").style.display = 'none';
-//   document.getElementById("gear_icon").style.display = 'unset';
+  document.getElementById("gear_icon").style.display = 'unset';
   document.getElementById("all-timers").style.display = 'unset';
 
   document.getElementById("all-timers").innerHTML = ""; // Clear any current timers
