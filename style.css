@@ -1,9 +1,20 @@
+@font-face {
+  font-family: CurseOfVulKar;
+  src: url(assets/curseofvulkar.otf);
+}
+
 h1 {
   text-align: center;
 }
 
 body {
   text-align: center;
+  background-image: url('assets/background.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
+  background-size: 100% 100%;
+  /* font-family: CurseOfVulKar;
+  font-size: x-large; */
 }
 
 input[type="number"] {
@@ -11,7 +22,7 @@ input[type="number"] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
-/*   box-shadow: 5px 5px 7px #d2e3f7; */
+  box-shadow: 2px 3px 7px #000408;
   cursor: text;
 }
 
@@ -19,16 +30,20 @@ input[type="number"] {
   display: unset;
 }
 
+.time {
+  font-family: CurseOfVulKar;
+  font-size: 7em;
+}
+
 button {
   margin: 10px;
 }
 
 /* Creates pressed effect on button*/
-button:hover {
-/*   background-color: #0665d4; */
+#submit:hover {
+  background-color: #030e1b;
 }
 button:active {
-/*   background-color: #0665d4; */
   box-shadow: 0 5px #666666;
   transform: translateY(10%);
 }
@@ -38,20 +53,18 @@ button:active {
   width: 10em;
   margin: 20px 20px 20px 20px;
   border-radius: 20px;
-  background-color: #037bfc;
+  background-color: #060c11;
   color: #edf3fa;
   font-size: 20px;
   cursor: pointer;
   border: none;
-  box-shadow: 0 7px #999999;
+  box-shadow: 0 7px #3d3d3d;
   outline: none;
 }
 
 .start {
   height: 50%;
   width: 5em;
-/*   background-color: green; */
-/*   color: #edf3fa; */
   cursor: pointer;
   box-shadow: 0 10% #999999;
   outline: none;
@@ -60,8 +73,6 @@ button:active {
 .pause {
   height: 50%;
   width: 5em;
-/*   background-color: green; */
-/*   color: #edf3fa; */
   cursor: pointer;
   box-shadow: 0 10% #999999;
   outline: none;
@@ -70,8 +81,6 @@ button:active {
 .reset {
   height: 50%;
   width: 5em;
-/*   background-color: green; */
-/*   color: #edf3fa; */
   cursor: pointer;
   box-shadow: 0 10% #999999;
   outline: none;
@@ -80,8 +89,6 @@ button:active {
 .next {
   height: 50%;
   width: 5em;
-/*   background-color: green; */
-/*   color: #edf3fa; */
   cursor: pointer;
   box-shadow: 0 10% #999999;
   outline: none;
@@ -111,4 +118,10 @@ span {
 .roundComplete {
   font-size: 1.5em;
   font-weight: bold;
+}
+
+label {
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 0.3em;
 }

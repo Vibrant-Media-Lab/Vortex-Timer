@@ -1,6 +1,12 @@
 const NUM_OF_TIMERS = 4;  // total number of timers
 const DEFAULT_TIME = 15; // default time for timers (in seconds!!!)
 
+// Array of alarm ids. Timer n uses the id from ALARMS[n]
+// (Index 0 is not used). If no id is provided, the alarm named default plays
+// MAKE SURE THAT IDS MATCH WITH THE IDS IN THE HTML FILE!
+const ALARMS = ["", "default", "alarm2", "default", "default"];
+
+
 var timerInfo;    // dictionary containing timer defaults 
                   // {timerName: {h: hours (int), m: minutes (int), s: seconds (int)}}
 
@@ -59,9 +65,14 @@ function startTimer(num) {
       // Timer reached 0
       if (--timer < 0) {
             
-        // play alarm sound
-        var x = document.getElementById("alarm"); 
-        x.play();
+        // play alarm sound using id from ALARMS[num]
+        if (num < ALARMS.length && ALARMS[num] != ""){
+          var x = document.getElementById(ALARMS[num]); 
+          x.play();
+        } else {  // play default alarm if id not specified in ALARMS
+          var x = document.getElementById("default");
+          x.play();
+        }
          
         pauseTimer(num);
         nextTimer(num);
@@ -135,8 +146,9 @@ function nextTimer(num){
     }
   }
   
-  // highlight next timer
-  document.getElementById("time" + (num+1)).style.color = "red";
+  // highlight next timer once last timer is done and if next timer is not already complete
+  if (!isPaused.includes(false) && document.getElementById("roundComplete" + (num+1)).style.display == "none")
+    document.getElementById("time" + (num+1)).style.color = "red";
 }
 
 /**
@@ -226,6 +238,7 @@ function createTimer(num, h, m, s, insert) {
 
   // Set up starting time
   const span = document.createElement("span");
+  span.setAttribute("class", "time");
   span.setAttribute("id", "time" + num);
   
     // Format to two digits
@@ -323,7 +336,7 @@ function createForm(){
     hourInput.setAttribute("placeholder", h);
     document.getElementById('form').appendChild(hourInput);
     const hourText = document.createElement("label");
-    hourText.innerHTML = " hr ";
+    hourText.innerHTML = "  hr ";
     document.getElementById('form').appendChild(hourText);
     
     // create minutes input

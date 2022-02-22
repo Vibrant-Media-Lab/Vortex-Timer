@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<!--     <meta name="viewport" content="width=device-width, initial-scale=1" />
- -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Timers</title>
 
     <!-- import the webpage's stylesheet -->
@@ -17,13 +17,18 @@
   <body>
     
     <div id="top">
-      <h1>Timers</h1>
-      <img id="gear_icon" src="gear.png" onclick="turnOnForm()" alt="settings" width="30" height="30">
-    </div> <br> <br>
+      <!-- <h1>Timers</h1> -->
+      <img id="graphic" src="assets/graphic.png" alt="graphic" width="150">
+    </div> 
   
-    
-    <audio id="alarm"><source src="alarm1.mp3" type="audio/mpeg"></audio>
-        
+    <!-- different alarms for when timer ends -->
+    <audio id="default"><source src="assets/alarm1.mp3" type="audio/mpeg"></audio>
+    <audio id="alarm2"><source src="assets/alarm2.mp3" type="audio/mpeg"></audio>
+    <audio id="alarm3"><source src="assets/alarm1.mp3" type="audio/mpeg"></audio>
+    <audio id="alarm4"><source src="assets/alarm1.mp3" type="audio/mpeg"></audio>    
+
+    <img id="gear_icon" src="assets/gear.png" onclick="turnOnForm()" alt="settings" width="30" height="30">
+
     <form id="form"> </form>
     
     <div id="all-timers"> </div>
