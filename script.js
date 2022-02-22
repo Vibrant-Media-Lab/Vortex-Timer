@@ -143,7 +143,7 @@ function nextTimer(num){
  * Creates new timers once using form info
  */
 function handleSubmit(){
-  event.preventDefault();
+//   event.preventDefault();
   
   // Hide form, show gear and timers
   document.getElementById("form").style.display = 'none';
