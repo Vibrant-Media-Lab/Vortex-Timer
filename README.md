@@ -9,7 +9,7 @@ Created with JavaScript, HTML, and CSS, this web app sets up a series of timers 
 * _Start_: timer begins counting down from its current time
 * _Pause_: stops the timer (clicking it again starts the timer from where it left off) 
 * _Reset_: reverts the timer back to its original time (based on user input)
-* _Next_: Ends the round and moves on to the next timer  
+* _Next_: Ends the round and moves on to the next timer. If the last timer is reached, all timers reset.  
 
 Clicking the gear icon on the right takes the user back to the input fields, where they can enter new starting times. 
 
