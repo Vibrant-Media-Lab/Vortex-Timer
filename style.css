@@ -1,6 +1,6 @@
 @font-face {
-  font-family: CurseOfVulKar;
-  src: url(assets/curseofvulkar.otf);
+  font-family: curseofvulkar;
+  src: url(assets/CurseOfVulKar.otf);
 }
 
 h1 {
@@ -13,8 +13,6 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed; 
   background-size: 100% 100%;
-  /* font-family: CurseOfVulKar;
-  font-size: x-large; */
 }
 
 input[type="number"] {
@@ -31,7 +29,7 @@ input[type="number"] {
 }
 
 .time {
-  font-family: CurseOfVulKar;
+  font-family: curseofvulkar;
   font-size: 6em;
 }
 
