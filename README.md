@@ -1,8 +1,8 @@
-# Hours, Minutes, Seconds
+# Archipelago
 
 ### To view the web app, follow this link:
 
-[Visit Web App](https://jennzheng12315.github.io/)
+[Visit Web App](https://jennzheng12315.github.io/Archipelago)
 
 # About
 Created with JavaScript, HTML, and CSS, this web app sets up a series of timers based on user inputs. Each timer has four buttons:
