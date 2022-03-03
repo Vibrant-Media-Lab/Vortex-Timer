@@ -15,10 +15,10 @@ const DEFAULT_TIME = [0, 15, 15, 15, 15, 8];
 
 var timerInfo;    // dictionary containing timer defaults in seconds
 var currentTimes; // dictionary containing the current times of the timers in seconds
+var timers;       // dictionary of timer variables for startTimer() and stopTimer()
 
 var isPaused;     // array of booleans (true for paused, false for not paused)
-
-var timers; // dictionary of timer variables for startTimer() and stopTimer()
+var isShown;      // array of booleans (true for shown timer, false for hidden)
 
 /**
  * Starts counting down the timer
@@ -72,8 +72,8 @@ function startTimer(num) {
           x.play();
         }
          
-        start_pauseTimer(num);
-        nextTimer(num);
+        start_pauseTimer(num); // Pause timer
+        nextTimer(num); // Move on to next timer
       }
     }, 1000);
 }
@@ -143,8 +143,9 @@ function nextTimer(num){
   }
   
   // highlight next timer once last timer is done and if next timer is not already complete
-  if (!isPaused.includes(false) && document.getElementById("roundComplete" + (num+1)).style.display == "none")
-    document.getElementById("time" + (num+1)).style.color = "red";
+  var nextTimer = isShown.indexOf(true, num+1); // Get next shown timer
+  if (!isPaused.includes(false) && document.getElementById("roundComplete" + (nextTimer)).style.display == "none")
+    document.getElementById("time" + (nextTimer)).style.color = "red";
 }
 
 /**
@@ -152,11 +153,8 @@ function nextTimer(num){
  */
 function handleSubmit(){
   event.preventDefault();
+
   
-  // Hide form, show gear and timers
-  document.getElementById("form").style.display = 'none';
-  document.getElementById("gear_icon").style.display = 'unset';
-  document.getElementById("all-timers").style.display = 'unset';
 
   document.getElementById("all-timers").innerHTML = ""; // Clear any current timers
   
@@ -175,12 +173,27 @@ function handleSubmit(){
     // Turn str to int
     sec = parseInt(sec);
 
-    
-    // Add timer info to dictionaries
+    // Show error message if negative number is inputted
+    if (sec < 0) {
+      document.getElementById("error").style.display = "unset";
+      return;
+    } else {
+      document.getElementById("error").style.display = "none";
+    }
+
+    // Add timer info to dictionary
     timerInfo[timerName] = sec;
+
+    // Add results of checkboxes to isShown
+    isShown[i] = document.getElementById("cb"+i).checked;
         
     createTimer(i, sec, false);
   }
+
+  // Hide form, show gear and timers
+  document.getElementById("form").style.display = 'none';
+  document.getElementById("gear_icon").style.display = 'unset';
+  document.getElementById("all-timers").style.display = 'unset';
 }
 
 /**
@@ -216,20 +229,27 @@ function createTimer(num, s, insert) {
     }
   }
   
-  var timeInSecs = (h * 3600) + (m * 60) + s - 1; // get total seconds for startTimer()
-  currentTimes["timer" + num] = timeInSecs;
+  // Must have -1 to start counting down immediately after button press
+  currentTimes["timer" + num] = s - 1;
   
   // Create div to hold all timer parts
   const div = document.createElement("div");
   div.setAttribute("class", "timer");
   div.setAttribute("id", "timer" + num);
   
+  // Add new timer at the end or at a certain location depending on insert boolean
   if (insert == false || num == NUM_OF_TIMERS)
     document.getElementById("all-timers").appendChild(div);
   else {
     var allTimers = document.getElementById("all-timers");
     allTimers.insertBefore(div, allTimers.childNodes[num-1]);
   }
+
+  // Hide timers that are not checked, show timers that are checked
+  if (isShown[num] == false)
+    document.getElementById("timer" + num).style.display = "none";
+  else
+    document.getElementById("timer" + num).style.display = "unset";
 
   // Set up labels before timers
   const labeldiv = document.createElement("div");
@@ -340,14 +360,29 @@ function createForm(){
     const secInput = document.createElement("input");
     secInput.setAttribute("type", "number");
     secInput.setAttribute("id", "sec"+i);
-    secInput.setAttribute("min", "0");
-    secInput.setAttribute("max", "59");
     secInput.setAttribute("placeholder", s);
     document.getElementById('inputs').appendChild(secInput);
     const secText = document.createElement("label");
     secText.setAttribute("class", "secText");
     secText.innerHTML = " sec " + "<br>";
     document.getElementById('inputs').appendChild(secText);
+
+    // Create checkbox div
+    const checkboxDiv = document.createElement("label");
+    checkboxDiv.setAttribute("class", "switch");
+    checkboxDiv.setAttribute("id", "checkbox"+i);
+    document.getElementById('inputs').appendChild(checkboxDiv);
+
+    // Create checkbox itself
+    const checkbox = document.createElement("input");
+    checkbox.setAttribute("type", "checkbox");
+    checkbox.setAttribute("id", "cb"+i);
+    checkbox.setAttribute("checked", ""); // Start with box checked
+    document.getElementById("checkbox"+i).appendChild(checkbox);
+
+    const span = document.createElement("span");
+    span.setAttribute("class", "slider round");
+    document.getElementById("checkbox" + i).appendChild(span);
   }
   
   // create submit button
@@ -357,6 +392,12 @@ function createForm(){
   submitBtn.innerHTML = "Create Timers";
   document.getElementById("form").appendChild(submitBtn);
   
+  // create error message
+  const error = document.createElement("p");
+  error.setAttribute("id", "error");
+  error.innerHTML = "<br>Error. Cannot have negative seconds.";
+  error.style.display = "none";
+  document.getElementById("form").appendChild(error);
 }
 
 /**
@@ -366,6 +407,7 @@ window.onload = function () {
     timerInfo = {};
     currentTimes = {};
     isPaused = [true] // index 0 is a filler; there is no timer 0
+    isShown = [true] // index 0 is a filler; there is no timer 0
     timers = {};
     for (var i = 1; i <= NUM_OF_TIMERS; i++){
       timers["timer"+i] = null;
