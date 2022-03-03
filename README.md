@@ -1,4 +1,4 @@
-# Vibrant Media Lab Timers
+# Hours, Minutes, Seconds
 
 ### To view the web app, follow this link:
 
