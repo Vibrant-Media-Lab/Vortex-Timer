@@ -29,15 +29,11 @@ function startTimer(num) {
     
     // Don't do anything if there is a timer already running
     if (isPaused.includes(false))
-      return
+      return;
   
     isPaused[num] = false;
   
     var duration = currentTimes['timer' + num];
-    
-    // Do nothing if time is 0
-    if (duration == 0)
-      return;
   
     // Highlight current timer, revert others back to original state
     for (var i = 1; i <= NUM_OF_TIMERS; i++){
@@ -76,18 +72,18 @@ function startTimer(num) {
           x.play();
         }
          
-        pauseTimer(num);
+        start_pauseTimer(num);
         nextTimer(num);
       }
     }, 1000);
 }
 
 /**
- * Stops counting down the timer
+ * Starts and stops counting down the timer
  *
  * @param {number} num The number of the timer
  */
-function pauseTimer(num){
+function start_pauseTimer(num){
   
   // stop if timer is not already running
   if (isPaused[num] == false){
@@ -106,13 +102,13 @@ function pauseTimer(num){
  */
 function resetTimer(num){
   if (isPaused[num] == false)
-    pauseTimer(num);
+    start_pauseTimer(num);
   
   // get default hours, minutes, and seconds
   var sec = timerInfo['timer' + num];
   
   // reset current time of timer to the default 
-  currentTimes['timer'+num] = (3600 * hr) + (60 * min) + sec - 1;
+  currentTimes['timer'+num] = sec;
   
   document.getElementById("timer" + num).remove();  
   createTimer(num, sec, true);
@@ -125,7 +121,7 @@ function resetTimer(num){
  */
 function nextTimer(num){
   if (isPaused[num] == false)
-    pauseTimer(num);
+    start_pauseTimer(num);
   
   // Replace buttons with round complete message
   document.getElementById("roundComplete" + num).style.display = 'unset'; 
@@ -235,6 +231,12 @@ function createTimer(num, s, insert) {
     allTimers.insertBefore(div, allTimers.childNodes[num-1]);
   }
 
+  // Set up labels before timers
+  const labeldiv = document.createElement("div");
+  labeldiv.setAttribute("class", "label_name");
+  labeldiv.innerHTML = LABELS[num];
+  document.getElementById("timer" + num).appendChild(labeldiv);
+
   // Set up starting time
   const span = document.createElement("span");
   span.setAttribute("class", "time");
@@ -255,20 +257,11 @@ function createTimer(num, s, insert) {
   document.getElementById("timer" + num).appendChild(btnDiv);
   document.getElementById("btns" + num).style.display = 'unset';
   
-  // Start button
-  const startBtn = document.createElement("button");
-  startBtn.setAttribute("class", "start");
-  startBtn.innerHTML = "Start";
-  startBtn.onclick = function() { 
-    startTimer(num) ; 
-  };
-  document.getElementById("btns" + num).appendChild(startBtn);
-  
-  // Pause button
+  // Start/Pause button
   const pauseBtn = document.createElement("button");
-  pauseBtn.setAttribute("class", "pause");
-  pauseBtn.innerHTML = "Pause";
-  pauseBtn.onclick = function() { pauseTimer(num) };
+  pauseBtn.setAttribute("class", "start_pause");
+  pauseBtn.innerHTML = "Start/Pause";
+  pauseBtn.onclick = function() { start_pauseTimer(num) };
   document.getElementById("btns" + num).appendChild(pauseBtn);
   
   // Reset button
@@ -327,15 +320,21 @@ function createForm(){
       h = h < 10 ? "0" + h : h;
       m = m < 10 ? "0" + m : m;
       s = s < 10 ? "0" + s : s;
+
+    // div section for all inputs
+    const inputs = document.createElement("div");
+    inputs.setAttribute('id', 'inputs')
+    document.getElementById('form').appendChild(inputs);
     
     // create timer text before input fields
     const timerText = document.createElement("label");
+    timerText.setAttribute("class", "form_labels");
 
     if (i < LABELS.length){
-      timerText.innerHTML = LABELS[i];
+      timerText.innerHTML = LABELS[i] + ':';
     }
 
-    document.getElementById('form').appendChild(timerText);
+    document.getElementById('inputs').appendChild(timerText);
     
     // create seconds input
     const secInput = document.createElement("input");
@@ -344,10 +343,11 @@ function createForm(){
     secInput.setAttribute("min", "0");
     secInput.setAttribute("max", "59");
     secInput.setAttribute("placeholder", s);
-    document.getElementById('form').appendChild(secInput);
+    document.getElementById('inputs').appendChild(secInput);
     const secText = document.createElement("label");
+    secText.setAttribute("class", "secText");
     secText.innerHTML = " sec " + "<br>";
-    document.getElementById('form').appendChild(secText);
+    document.getElementById('inputs').appendChild(secText);
   }
   
   // create submit button
@@ -373,4 +373,5 @@ window.onload = function () {
     }
   
     createForm();
+    handleSubmit(); // Start on timer page
 };
