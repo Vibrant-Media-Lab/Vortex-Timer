@@ -5,9 +5,8 @@
 [Visit Web App](https://jennzheng12315.github.io/Archipelago)
 
 # About
-Created with JavaScript, HTML, and CSS, this web app sets up a series of timers based on user inputs. Each timer has four buttons:
-* _Start_: timer begins counting down from its current time
-* _Pause_: stops the timer (clicking it again starts the timer from where it left off) 
+Created with JavaScript, HTML, and CSS, this web app sets up a series of timers based on user inputs. Each timer has three buttons:
+* _Start/Pause_: starts the timer if it is not running, stops the timer if it is running
 * _Reset_: reverts the timer back to its original time (based on user input)
 * _Next_: Ends the round and moves on to the next timer. If the last timer is reached, all timers reset.  
 
