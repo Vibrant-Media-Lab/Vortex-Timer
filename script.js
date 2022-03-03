@@ -1,11 +1,17 @@
-const NUM_OF_TIMERS = 4;  // total number of timers
-const DEFAULT_TIME = 15; // default time for timers (in seconds!!!)
+const NUM_OF_TIMERS = 5;  // total number of timers
 
-// Array of alarm ids. Timer n uses the id from ALARMS[n]
-// (Index 0 is not used). If no id is provided, the alarm named default plays
+// Array of alarm ids. Timer n uses the id from ALARMS[n].
+// Index 0 is not used. If no id is provided, the alarm named default plays
 // MAKE SURE THAT IDS MATCH WITH THE IDS IN THE HTML FILE!
 const ALARMS = ["", "default", "alarm2", "default", "default"];
 
+// Array of labels for input form. Works similarly to ALARMS.
+// If no label is provided, the label is blank
+const LABELS = ["", "Planning/Minor Actions", "Movement, Rank 1", "Movement, Rank 2", "Movement, Rank 3", "Choose Major Action"];
+
+// Array of default times. Works similarly to ALARMS and LABELS.
+// If no time is provided, the default is 0
+const DEFAULT_TIME = [0, 15, 15, 15, 15, 8];
 
 var timerInfo;    // dictionary containing timer defaults 
                   // {timerName: {h: hours (int), m: minutes (int), s: seconds (int)}}
@@ -176,7 +182,7 @@ function handleSubmit(){
     document.getElementById("min" + i).value = '';
     document.getElementById("sec" + i).value = '';
     
-    // If input is empty, default 0
+    // If input is empty, default timer display is 0
     if (hr == "")
       hr = 0;
     if (min == "")        
@@ -214,12 +220,19 @@ function handleSubmit(){
 function createTimer(num, h, m, s, insert) {
   
   // set up default
-  if (h == 0 && m == 0 && s == 0) {
-    h = Math.floor(DEFAULT_TIME / 3600);
-    m = DEFAULT_TIME - (3600*h);
-    m = Math.floor(m / 60);
-    s = DEFAULT_TIME % 60;
+  if (num < DEFAULT_TIME.length) {
+    if (h == 0 && m == 0 && s == 0) {
+      h = Math.floor(DEFAULT_TIME[num] / 3600);
+      m = DEFAULT_TIME[num] - (3600*h);
+      m = Math.floor(m / 60);
+      s = DEFAULT_TIME[num] % 60;
+    }
+  } else {
+    h = 0;
+    m = 0;
+    s = 0;
   }
+
   
   var timeInSecs = (h * 3600) + (m * 60) + s - 1; // get total seconds for startTimer()
   currentTimes["timer" + num] = timeInSecs;
@@ -310,22 +323,32 @@ function turnOnForm(){
 function createForm(){
   var h, m, s;
   
-  // divide default time into h, m, and s
-  h = Math.floor(DEFAULT_TIME / 3600);
-  m = DEFAULT_TIME - (3600*h);
-  m = Math.floor(m / 60);
-  s = DEFAULT_TIME % 60;
-  
-  // Format to two digits
-  h = h < 10 ? "0" + h : h;
-  m = m < 10 ? "0" + m : m;
-  s = s < 10 ? "0" + s : s;
-  
   for (var i = 1; i <= NUM_OF_TIMERS; i++){
+
+      // divide default time into h, m, and s
+      if (i < DEFAULT_TIME.length) {
+        h = Math.floor(DEFAULT_TIME[i] / 3600);
+        m = DEFAULT_TIME[i] - (3600*h);
+        m = Math.floor(m / 60);
+        s = DEFAULT_TIME[i] % 60;
+      } else {
+        h = 0;
+        m = 0;
+        s = 0;
+      }
+      
+      // Format to two digits
+      h = h < 10 ? "0" + h : h;
+      m = m < 10 ? "0" + m : m;
+      s = s < 10 ? "0" + s : s;
     
     // create timer text before input fields
     const timerText = document.createElement("label");
-    timerText.innerHTML = "Timer " + i + ": ";
+
+    if (i < LABELS.length){
+      timerText.innerHTML = LABELS[i];
+    }
+
     document.getElementById('form').appendChild(timerText);
     
     // create hour input
