@@ -13,16 +13,12 @@ const LABELS = ["", "Planning/Minor Actions", "Movement, Rank 1", "Movement, Ran
 // If no time is provided, the default is 0
 const DEFAULT_TIME = [0, 15, 15, 15, 15, 8];
 
-var timerInfo;    // dictionary containing timer defaults 
-                  // {timerName: {h: hours (int), m: minutes (int), s: seconds (int)}}
-
-var currentTimes; // dictionary containing the current times of the timers
-                  // {timerName: time (in seconds)}
+var timerInfo;    // dictionary containing timer defaults in seconds
+var currentTimes; // dictionary containing the current times of the timers in seconds
 
 var isPaused;     // array of booleans (true for paused, false for not paused)
 
 var timers; // dictionary of timer variables for startTimer() and stopTimer()
-            // {timerName: timer_variable}
 
 /**
  * Starts counting down the timer
@@ -113,15 +109,13 @@ function resetTimer(num){
     pauseTimer(num);
   
   // get default hours, minutes, and seconds
-  var hr = timerInfo['timer' + num]['h'];
-  var min = timerInfo['timer' + num]['m'];
-  var sec = timerInfo['timer' + num]['s'];
+  var sec = timerInfo['timer' + num];
   
   // reset current time of timer to the default 
   currentTimes['timer'+num] = (3600 * hr) + (60 * min) + sec - 1;
   
   document.getElementById("timer" + num).remove();  
-  createTimer(num, hr, min, sec, true);
+  createTimer(num, sec, true);
 }
 
 /**
@@ -173,37 +167,23 @@ function handleSubmit(){
   for (var i = 1; i <= NUM_OF_TIMERS; i++){
     
     var timerName = "timer" + i;
-    var hr = document.getElementById("hour" + i).value;
-    var min = document.getElementById("min" + i).value;
     var sec = document.getElementById("sec" + i).value;
     
     // Clear input fields
-    document.getElementById("hour" + i).value = '';
-    document.getElementById("min" + i).value = '';
     document.getElementById("sec" + i).value = '';
     
     // If input is empty, default timer display is 0
-    if (hr == "")
-      hr = 0;
-    if (min == "")        
-      min = 0;
     if (sec == "")
       sec = 0;
         
     // Turn str to int
-    hr = parseInt(hr);
-    min = parseInt(min);
     sec = parseInt(sec);
 
     
     // Add timer info to dictionaries
-    timerInfo[timerName] = {
-      "h": hr,
-      "m": min,
-      "s": sec
-    }
+    timerInfo[timerName] = sec;
         
-    createTimer(i, hr, min, sec, false);
+    createTimer(i, sec, false);
   }
 }
 
@@ -217,22 +197,28 @@ function handleSubmit(){
  * @param {boolean} insert true if the new timer should be inserted at a certain location
  *                         false if the new timer should be inserted at the end
  */
-function createTimer(num, h, m, s, insert) {
+function createTimer(num, s, insert) {
+
+  // Divide seconds into hours, minutes, and seconds
+  var h, m;
+  h = Math.floor(s / 3600);
+  m = s - (3600*h);
+  m = Math.floor(m / 60);
+  s = s % 60;
   
-  // set up default
-  if (num < DEFAULT_TIME.length) {
-    if (h == 0 && m == 0 && s == 0) {
+  // set up default if needed
+  if (h == 0 && m == 0 && s == 0) {
+    if (num < DEFAULT_TIME.length) {
       h = Math.floor(DEFAULT_TIME[num] / 3600);
       m = DEFAULT_TIME[num] - (3600*h);
       m = Math.floor(m / 60);
       s = DEFAULT_TIME[num] % 60;
+    } else {
+      h = 0;
+      m = 0;
+      s = 0;
     }
-  } else {
-    h = 0;
-    m = 0;
-    s = 0;
   }
-
   
   var timeInSecs = (h * 3600) + (m * 60) + s - 1; // get total seconds for startTimer()
   currentTimes["timer" + num] = timeInSecs;
@@ -350,29 +336,6 @@ function createForm(){
     }
 
     document.getElementById('form').appendChild(timerText);
-    
-    // create hour input
-    const hourInput = document.createElement("input");
-    hourInput.setAttribute("type", "number");
-    hourInput.setAttribute("id", "hour"+i);
-    hourInput.setAttribute("min", "0");
-    hourInput.setAttribute("placeholder", h);
-    document.getElementById('form').appendChild(hourInput);
-    const hourText = document.createElement("label");
-    hourText.innerHTML = "  hr ";
-    document.getElementById('form').appendChild(hourText);
-    
-    // create minutes input
-    const minInput = document.createElement("input");
-    minInput.setAttribute("type", "number");
-    minInput.setAttribute("id", "min"+i);
-    minInput.setAttribute("min", "0");
-    minInput.setAttribute("max", "59");
-    minInput.setAttribute("placeholder", m);
-    document.getElementById('form').appendChild(minInput);
-    const minText = document.createElement("label");
-    minText.innerHTML = " min ";
-    document.getElementById('form').appendChild(minText);
     
     // create seconds input
     const secInput = document.createElement("input");
