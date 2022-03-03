@@ -13,8 +13,11 @@ Created with JavaScript, HTML, and CSS, this web app sets up a series of timers 
 Clicking the gear icon on the right takes the user back to the input fields, where they can enter new starting times. 
 
 ## Modifications
-To change the default time of all timers:
-* Set `const DEFAULT_TIME` at the top of `script.js` equal to the time you want (**IN SECONDS!**).
+To change the default time of a timer:
+* In `const DEFAULT_TIME` at the top of `script.js`, change the default time at the index the timer is at to the time you want (**IN SECONDS!**). For example, if you want timer 1 to have a default of 10 seconds, change `DEFAULT_TIME[1]` from 15 to 10.
+
+To change the label of a timer:
+* In `const LABELS` at the top of `script.js`, change the label at the index the timer is at to the label you want. For example, if you want timer 1 to have a label of "Timer 1", change `LABELS[1]` from "Planning/Minor Actions" to "Timer 1".
 
 To change the number of timers that are created:
 * Set `const NUM_OF_TIMERS` at the top of `script.js` equal to the number you want (**WHOLE NUMBES ONLY!**).
