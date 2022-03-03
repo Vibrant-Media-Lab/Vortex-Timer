@@ -5,17 +5,19 @@
 [Visit Web App](https://jennzheng12315.github.io/Archipelago)
 
 # About
-Created with JavaScript, HTML, and CSS, this web app sets up a series of timers based on user inputs. Each timer has four buttons:
-* _Start_: timer begins counting down from its current time
-* _Pause_: stops the timer (clicking it again starts the timer from where it left off) 
+Created with JavaScript, HTML, and CSS, this web app sets up a series of timers based on user inputs. Each timer has three buttons:
+* _Start/Pause_: starts the timer if it is not running, stops the timer if it is running
 * _Reset_: reverts the timer back to its original time (based on user input)
 * _Next_: Ends the round and moves on to the next timer. If the last timer is reached, all timers reset.  
 
 Clicking the gear icon on the right takes the user back to the input fields, where they can enter new starting times. 
 
 ## Modifications
-To change the default time of all timers:
-* Set `const DEFAULT_TIME` at the top of `script.js` equal to the time you want (**IN SECONDS!**).
+To change the default time of a timer:
+* In `const DEFAULT_TIME` at the top of `script.js`, change the default time at the index the timer is at to the time you want (**IN SECONDS!**). For example, if you want timer 1 to have a default of 10 seconds, change `DEFAULT_TIME[1]` from 15 to 10.
+
+To change the label of a timer:
+* In `const LABELS` at the top of `script.js`, change the label at the index the timer is at to the label you want. For example, if you want timer 1 to have a label of "Timer 1", change `LABELS[1]` from "Planning/Minor Actions" to "Timer 1".
 
 To change the number of timers that are created:
 * Set `const NUM_OF_TIMERS` at the top of `script.js` equal to the number you want (**WHOLE NUMBES ONLY!**).
