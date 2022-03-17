@@ -52,7 +52,7 @@ label {
 }
 
 /* stops float before so submit button remains below inputs*/
-#inputs:after{
+.inputs:after{
   content: "";
   display: table;
   clear: both;
@@ -65,10 +65,36 @@ label {
   color: red;
 }
 
+/* Shrink text size if screen gets too small */
+@media screen and (max-width: 550px) {
+  label{
+    font-size: 1em;
+  }
+}
+
 /* ---------- CSS for timers page ----------------- */
 
 #all-timers {
   display: unset;
+  height: auto;
+}
+
+/* Make 3 columns */
+.column {
+  width: 33.33%;
+  float: left;
+}
+
+/* Adjust number of columns based on screen size*/
+@media screen and (max-width: 1000px) {
+  .column{
+    width: 50%;
+  }
+}
+@media screen and (max-width: 550px) {
+  .column{
+    width: 100%;
+  }
 }
 
 .time {
@@ -90,7 +116,7 @@ label {
 }
 
 .label_name {
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: bolder;
   margin-top: 1.5em;
 }
@@ -183,7 +209,7 @@ button:active {
   display: inline-block;
   margin-top: 0.9em;
   width: 40px;
-  height: 16px;
+  height: 13px;
 }
 
 /* Hide default HTML checkbox */

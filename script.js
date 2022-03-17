@@ -234,7 +234,7 @@ function createTimer(num, s, insert) {
   
   // Create div to hold all timer parts
   const div = document.createElement("div");
-  div.setAttribute("class", "timer");
+  div.setAttribute("class", "column");
   div.setAttribute("id", "timer" + num);
   
   // Add new timer at the end or at a certain location depending on insert boolean
@@ -343,7 +343,8 @@ function createForm(){
 
     // div section for all inputs
     const inputs = document.createElement("div");
-    inputs.setAttribute('id', 'inputs')
+    inputs.setAttribute('id', 'input' + i);
+    inputs.setAttribute('class', 'inputs');
     document.getElementById('form').appendChild(inputs);
     
     // create timer text before input fields
@@ -354,24 +355,24 @@ function createForm(){
       timerText.innerHTML = LABELS[i] + ':';
     }
 
-    document.getElementById('inputs').appendChild(timerText);
+    document.getElementById('input' + i).appendChild(timerText);
     
     // create seconds input
     const secInput = document.createElement("input");
     secInput.setAttribute("type", "number");
     secInput.setAttribute("id", "sec"+i);
     secInput.setAttribute("placeholder", s);
-    document.getElementById('inputs').appendChild(secInput);
+    document.getElementById('input' + i).appendChild(secInput);
     const secText = document.createElement("label");
     secText.setAttribute("class", "secText");
     secText.innerHTML = " sec " + "<br>";
-    document.getElementById('inputs').appendChild(secText);
+    document.getElementById('input' + i).appendChild(secText);
 
     // Create checkbox div
     const checkboxDiv = document.createElement("label");
     checkboxDiv.setAttribute("class", "switch");
     checkboxDiv.setAttribute("id", "checkbox"+i);
-    document.getElementById('inputs').appendChild(checkboxDiv);
+    document.getElementById('input' + i).appendChild(checkboxDiv);
 
     // Create checkbox itself
     const checkbox = document.createElement("input");
