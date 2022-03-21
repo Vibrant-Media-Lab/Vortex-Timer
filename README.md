@@ -2,7 +2,7 @@
 
 ### To view the web app, follow this link:
 
-[Visit Web App](https://jennzheng12315.github.io/Archipelago)
+[Visit Web App](https://jennzheng12315.github.io/Vortex-Timer/)
 
 # About
 Created with JavaScript, HTML, and CSS, this web app sets up a series of timers based on user inputs. Each timer has three buttons:
