@@ -1,17 +1,17 @@
-const NUM_OF_TIMERS = 5;  // total number of timers
+const NUM_OF_TIMERS = 1;  // total number of timers
 
 // Array of alarm ids. Timer n uses the id from ALARMS[n].
 // Index 0 is not used. If no id is provided, the alarm named default plays
 // MAKE SURE THAT IDS MATCH WITH THE IDS IN THE HTML FILE!
-const ALARMS = ["", "default", "alarm2", "default", "default"];
+const ALARMS = ["", "default"];
 
 // Array of labels for input form. Works similarly to ALARMS.
 // If no label is provided, the label is blank
-const LABELS = ["", "Planning/Minor Actions", "Movement, Rank 1", "Movement, Rank 2", "Movement, Rank 3", "Choose Major Action"];
+const LABELS = ["", "Timer"];
 
 // Array of default times. Works similarly to ALARMS and LABELS.
 // If no time is provided, the default is 0
-const DEFAULT_TIME = [0, 15, 15, 15, 15, 8];
+const DEFAULT_TIME = [0, 15];
 
 var timerInfo;    // dictionary containing timer defaults in seconds
 var currentTimes; // dictionary containing the current times of the timers in seconds

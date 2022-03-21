@@ -79,10 +79,10 @@ label {
   height: auto;
 }
 
-/* Make 3 columns */
+/* 1 centered column */
 .column {
-  width: 33.33%;
-  float: left;
+  width: 100%;
+  /* float: left; */
 }
 
 /* Adjust number of columns based on screen size*/
