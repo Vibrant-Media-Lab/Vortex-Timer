@@ -11,7 +11,7 @@ const LABELS = ["", "Timer"];
 
 // Array of default times. Works similarly to ALARMS and LABELS.
 // If no time is provided, the default is 0
-const DEFAULT_TIME = [0, 15];
+const DEFAULT_TIME = [0, 30];
 
 var timerInfo;    // dictionary containing timer defaults in seconds
 var currentTimes; // dictionary containing the current times of the timers in seconds
@@ -73,7 +73,7 @@ function startTimer(num) {
         }
          
         start_pauseTimer(num); // Pause timer
-        nextTimer(num); // Move on to next timer
+        // nextTimer(num); // Move on to next timer
       }
     }, 1000);
 }
@@ -186,6 +186,8 @@ function handleSubmit(){
 
     // Add results of checkboxes to isShown
     isShown[i] = document.getElementById("cb"+i).checked;
+
+    isPaused[i] = true;
         
     createTimer(i, sec, false);
   }

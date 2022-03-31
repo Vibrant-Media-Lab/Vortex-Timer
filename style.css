@@ -195,6 +195,7 @@ button:active {
   box-shadow: 0 10% #999999;
   outline: none;
   font-weight: bold;
+  display: none;
 }
 
 .next:hover {

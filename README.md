@@ -5,10 +5,11 @@
 [Visit Web App](https://jennzheng12315.github.io/Archipelago)
 
 # About
-Created with JavaScript, HTML, and CSS, this web app sets up a series of timers based on user inputs. Each timer has three buttons:
+Created with JavaScript, HTML, and CSS, this web app sets up a series of timers based on user inputs. Each timer has two buttons:
 * _Start/Pause_: starts the timer if it is not running, stops the timer if it is running
 * _Reset_: reverts the timer back to its original time (based on user input)
-* _Next_: Ends the round and moves on to the next timer. If the last timer is reached, all timers reset.  
+
+Note: There is a next button, but it is hidden using CSS since there is only one timer. 
 
 Clicking the gear icon on the right takes the user back to the input fields, where they can enter new starting times. 
 
@@ -32,12 +33,12 @@ To change the top graphic:
 
 To add your own alarm:
 * Upload your audio file into the `assets` folder.
-* In lines 25-28 of `index.html`, create a new audio line or modify existing line(s) so that `src="assets/name-of-file"`. If your file is not a mp3, you may need to change the type as well. 
+* After line 25 of `index.html`, create a new audio line or modify existing line(s) so that `src="assets/name-of-file"`. If your file is not a wav file, you may need to change the type as well. 
 * Change the id to what you would like. There may not be two or more of the same ids.
 
 To assign alarms to a specific timer:
-* At the top of `script.js`, there is an array ALARMS that contains the ids of the alarms associated with each timer. e.g. `const ALARMS = ["", "default", "alarm2", "default", "default"]`.
-* Change the id at the index the timer is at. For example, if you want to change timer 1's alarm to the second alarm, you will change the second element (a.k.a the element at index 1), "default" with "alarm2". Therefore, your array looks like this:  `const ALARMS = ["", "alarm2", "alarm2", "default", "default"]`.
+* At the top of `script.js`, there is an array ALARMS that contains the ids of the alarms associated with each timer.
+* Change the id at the index the timer is at. For example, if you want to change timer 1's alarm to an alarm with id "alarm2", you can change the second element (a.k.a the element at index 1), "default" with "alarm2". Therefore, your array looks like this:  `const ALARMS = ["", "alarm2"]`.
 * **MAKE SURE THAT THE IDS MATCH AN AUDIO ID IN `index.html`!**
 * _Note: The first id, "", is not used since there is not a timer 0. Furthermore, if no ids are provided or if the id is "", the alarm with the id "default" is used._ 
 
