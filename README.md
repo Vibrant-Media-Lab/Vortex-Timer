@@ -16,7 +16,7 @@ Clicking the gear icon on the right takes the user back to the input fields, whe
 # Note
 * Timer audio does not seem to work on Apple mobile devices.
 
-# Modifications
+# How to Make Changes
 To change the default time of a timer:
 * In `const DEFAULT_TIME` at the top of `script.js`, change the default time at the index the timer is at to the time you want (**IN SECONDS!**). For example, if you want timer 1 to have a default of 10 seconds, change `DEFAULT_TIME[1]` from 15 to 10.
 
