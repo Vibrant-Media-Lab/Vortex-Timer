@@ -14,7 +14,7 @@ Created with JavaScript, HTML, and CSS, this web app sets up a series of timers 
 Clicking the gear icon on the right takes the user back to the input fields, where they can enter new starting times. 
 
 # Note
-* Timer audio does not seem to work on Apple mobile devices.
+* Timer alarm may not work on Apple mobile devices.
 
 # How to Make Changes
 To change the default time of a timer:
